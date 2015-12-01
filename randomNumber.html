@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+	<style type="text/css">
+		body {
+			background-color: rgb(131, 175, 155);
+			z-index: 1;
+		}
+		
+		#container {
+			background-color: rgb(252, 157, 154);
+			width: 300px;
+			height: 500px;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 50px;
+			box-shadow: -5px 5px 5px grey;
+			z-index: 3;
+			overflow-x: hidden;
+			overflow-y: auto;
+		}
+		
+		#hearder {
+			background-color: rgb(254, 67, 101);
+			width: 300px;
+			height: 50px;
+			box-shadow: 0px 2px 2px grey;
+			text-align: center;
+			line-height: 50px;
+			font-family: "黑体";
+			font-size: larger;
+			color: white;
+			z-index: 9;
+		}
+		
+		.number {
+			width: 100%;
+			z-index: 5;
+			margin-top: 2px;
+		}
+		
+		.list {
+			width: 100%;
+			height: 30px;
+			line-height: 30px;
+			z-index: 7;
+			color: rgb(254, 67, 101);
+			padding-left: 10px;
+		}
+		
+		.list:nth-child(odd) {
+			background-color: rgb(249, 205, 173);
+		}
+		
+		.list:nth-child(even) {
+			background-color: rgb(200, 200, 169);
+		}
+		
+		#btn {
+			position: fixed;
+			left: 410px;
+			top: 490px;
+			width: 50px;
+			height: 50px;
+			background-color: white;
+			border: 2px solid rgb(254, 67, 101);
+			border-radius: 50%;
+		}
+	</style>
+
+	<body>
+		<div id="container">
+			<div id="hearder">
+				摇点数
+			</div>
+			<button id="btn">摇</button>
+			<div class="number">
+				<!--<div class="list">
+		    		123
+		    	</div>-->
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$("#btn").click(function() {
+			var ranNum = Math.floor(Math.random() * 100);
+			var divNum = $(".number").children("div").length;
+			var a = "";
+			for (i = 0; i <= divNum; i++) {
+				a += $(".number div:nth-child(" + i + ")").text() + "#"; //获取所有随机数项的值
+			};
+			writeNum(ranNum);
+
+			function writeNum(w) {
+				var minVal;
+				for (i = 0; i <= divNum; i++) {
+				a += $(".number div:nth-child(" + i + ")").text() + "#"; //获取所有随机数项的值
+			    };
+			    var a_a=new Array;
+			    a_a=a.split("#");
+				for (i = 0; i < a_a.length - 1; i++) {
+					minVal = Math.min(a_a[i], a_a[i + 1])
+				}
+				if (a.indexOf(w) >= 0) {
+					w = Math.floor(Math.random() * 100);
+					writeNum(w);
+				} else if (w<minVal) {
+					$(".number").append("<div class='list'>" + w +"s"+ "</div>");
+				} else {
+					$(".number").append("<div class='list'>" + w + "</div>");
+				}
+			}
+		});
+	</script>
+
+</html>
