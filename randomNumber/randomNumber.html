@@ -23,10 +23,13 @@
 			z-index: 3;
 			overflow-x: hidden;
 			overflow-y: auto;
+			padding-top: 50px;
 		}
 		
 		#hearder {
 			background-color: rgb(254, 67, 101);
+			position: absolute; 
+			top: 50px;
 			width: 300px;
 			height: 50px;
 			box-shadow: 0px 2px 2px grey;
@@ -67,9 +70,15 @@
 			top: 490px;
 			width: 50px;
 			height: 50px;
-			background-color: white;
+			background-color: rgb(249, 205, 173);
 			border: 2px solid rgb(254, 67, 101);
 			border-radius: 50%;
+			margin-left: 230px;
+		}
+		span{
+			margin-left: 150px;
+			color: rgb(254, 67, 101);
+			font-family: "黑体";
 		}
 	</style>
 
@@ -87,26 +96,54 @@
 		</div>
 	</body>
 	<script type="text/javascript">
-	function randomNum(){ //生成随机数
-		var a=Math.floor(Math.random()*10);
-		return a;
-	}
-	function createList(){
-		$(".number").append("<div class='list'>"+randomNum()+"</div>")
-	}
-	function create(){   //点击生成点数函数
-		var a=[];	
-	}
-	$("#btn").click(function(){
-		createList();
-	});
-	$(document).keydown(function(event){
-		if(event.keyCode==32){
-			createList();   
+		var num;
+		var Na = "0";
+		var Na_a = new Array;
+		function randomNum() { //生成随机数
+			num = Math.floor(Math.random() * 100);
 		}
-	})
+
+		function createList(e) {
+			$(".number").append("<div class='list'>" + e + "</div>")
+		}
+
+		function create() { //点击生成点数函数
+			randomNum();
+			var ranNum = num;
+			if (Na.indexOf(ranNum) >= 0) { //判断 Na中是否有已经出现的条目
+				create();
+			} else {
+				Na = Na + "#" + ranNum;
+				Na_a = Na.split("#");
+				Na_a.shift();
+				if (Na_a.length == 99) {
+					alert("超过最大限度100")
+				} else {
+					createList(ranNum);
+				}
+			}
+		}
+		function Dcreate(){                                 //判断最小条目
+			create();
+			//var scro=$("#container").scrollTop();
+			$("#container").scrollTop($("#container").height());
+			$("span").remove();
+		    $("div.list").each(function(){
+		    	var minNum=Math.min.apply(null,Na_a);
+		    	var Num1=$(this).text();
+		    	if (Num1==minNum) {
+		    		$(this).append("<span>你点数最小</span>")
+		    	}
+		    })
+		}
+		$("#btn").click(function() {
+			Dcreate();
+		});
+		$(document).keydown(function(event) {
+			if (event.keyCode == 32) {
+				Dcreate();
+			}
+		})
 	</script>
 
 </html>
-
-
