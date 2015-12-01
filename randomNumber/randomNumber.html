@@ -62,8 +62,8 @@
 		}
 		
 		#btn {
-			position: fixed;
-			left: 410px;
+			position: absolute;
+			left: auto;
 			top: 490px;
 			width: 50px;
 			height: 50px;
@@ -80,42 +80,33 @@
 			</div>
 			<button id="btn">摇</button>
 			<div class="number">
-				<!--<div class="list">
+				<!--<div class="list" onfocus="">
 		    		123
 		    	</div>-->
 			</div>
 		</div>
 	</body>
 	<script type="text/javascript">
-		$("#btn").click(function() {
-			var ranNum = Math.floor(Math.random() * 100);
-			var divNum = $(".number").children("div").length;
-			var a = "";
-			for (i = 0; i <= divNum; i++) {
-				a += $(".number div:nth-child(" + i + ")").text() + "#"; //获取所有随机数项的值
-			};
-			writeNum(ranNum);
-
-			function writeNum(w) {
-				var minVal;
-				for (i = 0; i <= divNum; i++) {
-				a += $(".number div:nth-child(" + i + ")").text() + "#"; //获取所有随机数项的值
-			    };
-			    var a_a=new Array;
-			    a_a=a.split("#");
-				for (i = 0; i < a_a.length - 1; i++) {
-					minVal = Math.min(a_a[i], a_a[i + 1])
-				}
-				if (a.indexOf(w) >= 0) {
-					w = Math.floor(Math.random() * 100);
-					writeNum(w);
-				} else if (w<minVal) {
-					$(".number").append("<div class='list'>" + w +"s"+ "</div>");
-				} else {
-					$(".number").append("<div class='list'>" + w + "</div>");
-				}
-			}
-		});
+	function randomNum(){ //生成随机数
+		var a=Math.floor(Math.random()*10);
+		return a;
+	}
+	function createList(){
+		$(".number").append("<div class='list'>"+randomNum()+"</div>")
+	}
+	function create(){   //点击生成点数函数
+		var a=[];	
+	}
+	$("#btn").click(function(){
+		createList();
+	});
+	$(document).keydown(function(event){
+		if(event.keyCode==32){
+			createList();   
+		}
+	})
 	</script>
 
 </html>
+
+
